@@ -266,19 +266,24 @@ class _ShoppingBudgetPageState extends State<ShoppingBudgetPage> with SingleTick
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              'Alınacaklar (${pendingItems.length})',
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            Expanded(
+              child: Text(
+                'Alınacaklar (${pendingItems.length})',
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
             if (items.isNotEmpty)
               Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   TextButton.icon(
                     style: TextButton.styleFrom(
                       foregroundColor: Colors.green[700],
+                      padding: const EdgeInsets.symmetric(horizontal: 6),
                     ),
-                    icon: const Icon(Icons.share, size: 18),
-                    label: const Text('Paylaş'),
+                    icon: const Icon(Icons.share, size: 16),
+                    label: const Text('Paylaş', style: TextStyle(fontSize: 12)),
                     onPressed: () => _shareShoppingList(appState),
                   ),
                   TextButton.icon(
@@ -374,7 +379,9 @@ class _ShoppingBudgetPageState extends State<ShoppingBudgetPage> with SingleTick
             color: isBought ? Colors.grey : Colors.black87,
           ),
         ),
-        subtitle: Row(
+        subtitle: Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          spacing: 8,
           children: [
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
@@ -387,7 +394,6 @@ class _ShoppingBudgetPageState extends State<ShoppingBudgetPage> with SingleTick
                 style: TextStyle(fontSize: 10, color: theme.colorScheme.primary, fontWeight: FontWeight.w600),
               ),
             ),
-            const SizedBox(width: 8),
             Text(
               '${item.amount % 1 == 0 ? item.amount.toInt() : item.amount} ${item.unit}',
               style: TextStyle(fontSize: 12, color: Colors.grey[600]),
@@ -660,15 +666,20 @@ class _ShoppingBudgetPageState extends State<ShoppingBudgetPage> with SingleTick
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    Icon(Icons.savings_outlined, color: theme.colorScheme.primary, size: 24),
-                    const SizedBox(width: 8),
-                    const Text(
-                      'Aylık Bütçe Hedefi',
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                    ),
-                  ],
+                Expanded(
+                  child: Row(
+                    children: [
+                      Icon(Icons.savings_outlined, color: theme.colorScheme.primary, size: 24),
+                      const SizedBox(width: 8),
+                      const Expanded(
+                        child: Text(
+                          'Aylık Bütçe Hedefi',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 TextButton.icon(
                   style: TextButton.styleFrom(
@@ -686,14 +697,18 @@ class _ShoppingBudgetPageState extends State<ShoppingBudgetPage> with SingleTick
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  '${monthlyTotal.toStringAsFixed(0)} TL / ${limit.toStringAsFixed(0)} TL',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    color: statusColor,
+                Expanded(
+                  child: Text(
+                    '${monthlyTotal.toStringAsFixed(0)} TL / ${limit.toStringAsFixed(0)} TL',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17,
+                      color: statusColor,
+                    ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
+                const SizedBox(width: 6),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
@@ -732,10 +747,14 @@ class _ShoppingBudgetPageState extends State<ShoppingBudgetPage> with SingleTick
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Kalan Bütçe: ${(limit - monthlyTotal > 0 ? (limit - monthlyTotal) : 0).toStringAsFixed(0)} TL',
-                  style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                Expanded(
+                  child: Text(
+                    'Kalan Bütçe: ${(limit - monthlyTotal > 0 ? (limit - monthlyTotal) : 0).toStringAsFixed(0)} TL',
+                    style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
+                const SizedBox(width: 8),
                 Text(
                   'Hedef: ${limit.toStringAsFixed(0)} TL',
                   style: TextStyle(fontSize: 12, color: Colors.grey[600]),
@@ -842,10 +861,14 @@ class _ShoppingBudgetPageState extends State<ShoppingBudgetPage> with SingleTick
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      'Bu Ayki Harcama Özeti',
-                      style: TextStyle(color: Colors.white70, fontSize: 13, fontWeight: FontWeight.w600),
+                    const Expanded(
+                      child: Text(
+                        'Bu Ayki Harcama Özeti',
+                        style: TextStyle(color: Colors.white70, fontSize: 13, fontWeight: FontWeight.w600),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
+                    const SizedBox(width: 8),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
@@ -862,39 +885,49 @@ class _ShoppingBudgetPageState extends State<ShoppingBudgetPage> with SingleTick
                 const SizedBox(height: 10),
                 Text(
                   '${monthlyTotal.toStringAsFixed(2)} TL',
-                  style: const TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold),
+                  style: const TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
+                  overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: 18),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Son 7 Gün (Haftalık)',
-                          style: TextStyle(color: Colors.white60, fontSize: 11),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          '${weeklyTotal.toStringAsFixed(2)} TL',
-                          style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                      ],
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Son 7 Gün (Haftalık)',
+                            style: TextStyle(color: Colors.white60, fontSize: 11),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            '${weeklyTotal.toStringAsFixed(2)} TL',
+                            style: const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        const Text(
-                          'Kayıtlı Fiş Sayısı',
-                          style: TextStyle(color: Colors.white60, fontSize: 11),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          '${receiptsList.length} adet',
-                          style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                      ],
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          const Text(
+                            'Kayıtlı Fiş Sayısı',
+                            style: TextStyle(color: Colors.white60, fontSize: 11),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            '${receiptsList.length} adet',
+                            style: const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -988,10 +1021,14 @@ class _ShoppingBudgetPageState extends State<ShoppingBudgetPage> with SingleTick
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    entry.key,
-                                    style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                                  Expanded(
+                                    child: Text(
+                                      entry.key,
+                                      style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
+                                  const SizedBox(width: 8),
                                   Text(
                                     '${entry.value.toStringAsFixed(2)} TL (${(percentage * 100).toStringAsFixed(1)}%)',
                                     style: TextStyle(

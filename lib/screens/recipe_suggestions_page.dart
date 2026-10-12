@@ -126,15 +126,20 @@ class _RecipeSuggestionsPageState extends State<RecipeSuggestionsPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            Icon(Icons.add_circle_outline, color: theme.colorScheme.primary, size: 28),
-                            const SizedBox(width: 8),
-                            const Text(
-                              'Kendi Tarifini Ekle',
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                            ),
-                          ],
+                        Expanded(
+                          child: Row(
+                            children: [
+                              Icon(Icons.add_circle_outline, color: theme.colorScheme.primary, size: 28),
+                              const SizedBox(width: 8),
+                              const Expanded(
+                                child: Text(
+                                  'Kendi Tarifini Ekle',
+                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         IconButton(
                           icon: const Icon(Icons.close),
@@ -160,6 +165,7 @@ class _RecipeSuggestionsPageState extends State<RecipeSuggestionsPage> {
                               Expanded(
                                 flex: 3,
                                 child: DropdownButtonFormField<String>(
+                                  isExpanded: true,
                                   initialValue: selectedCategory,
                                   decoration: const InputDecoration(
                                     labelText: 'Kategori',
@@ -205,9 +211,11 @@ class _RecipeSuggestionsPageState extends State<RecipeSuggestionsPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Text(
-                                'Malzemeler',
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                              const Expanded(
+                                child: Text(
+                                  'Malzemeler',
+                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                ),
                               ),
                               TextButton.icon(
                                 icon: const Icon(Icons.add, size: 16),
@@ -286,9 +294,11 @@ class _RecipeSuggestionsPageState extends State<RecipeSuggestionsPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Text(
-                                'Hazırlanış Adımları',
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                              const Expanded(
+                                child: Text(
+                                  'Hazırlanış Adımları',
+                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                ),
                               ),
                               TextButton.icon(
                                 icon: const Icon(Icons.add, size: 16),
@@ -703,7 +713,10 @@ class _RecipeSuggestionsPageState extends State<RecipeSuggestionsPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 4,
+                          crossAxisAlignment: WrapCrossAlignment.center,
                           children: [
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
@@ -716,12 +729,16 @@ class _RecipeSuggestionsPageState extends State<RecipeSuggestionsPage> {
                                 style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.black87),
                               ),
                             ),
-                            const SizedBox(width: 8),
-                            Icon(Icons.schedule, size: 12, color: Colors.grey[600]),
-                            const SizedBox(width: 3),
-                            Text(
-                              '${recipe.durationMinutes} dk',
-                              style: TextStyle(fontSize: 11, color: Colors.grey[600]),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.schedule, size: 12, color: Colors.grey[600]),
+                                const SizedBox(width: 3),
+                                Text(
+                                  '${recipe.durationMinutes} dk',
+                                  style: TextStyle(fontSize: 11, color: Colors.grey[600]),
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -870,9 +887,11 @@ class _RecipeSuggestionsPageState extends State<RecipeSuggestionsPage> {
                   children: [
                     Icon(Icons.check_circle_outline, color: Colors.green, size: 14),
                     SizedBox(width: 6),
-                    Text(
-                      'Tüm malzemeler kilerinizde hazır!',
-                      style: TextStyle(fontSize: 12, color: Colors.green, fontWeight: FontWeight.w500),
+                    Expanded(
+                      child: Text(
+                        'Tüm malzemeler kilerinizde hazır!',
+                        style: TextStyle(fontSize: 12, color: Colors.green, fontWeight: FontWeight.w500),
+                      ),
                     ),
                   ],
                 ),

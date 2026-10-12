@@ -221,20 +221,23 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Porsiyon Hesaplayıcı',
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                            ),
-                            Text(
-                              'Tarif ${widget.recipe.baseServings} kişilik yazılmıştır.',
-                              style: TextStyle(color: Colors.grey[600], fontSize: 11),
-                            ),
-                          ],
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Porsiyon Hesaplayıcı',
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                              ),
+                              Text(
+                                'Tarif ${widget.recipe.baseServings} kişilik yazılmıştır.',
+                                style: TextStyle(color: Colors.grey[600], fontSize: 11),
+                              ),
+                            ],
+                          ),
                         ),
                         Row(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
                             IconButton(
                               onPressed: _localServings > 1
@@ -249,7 +252,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                             ),
                             Text(
                               '$_localServings Kişilik',
-                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                             ),
                             IconButton(
                               onPressed: () {

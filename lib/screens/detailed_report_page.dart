@@ -176,13 +176,14 @@ class _DetailedReportPageState extends State<DetailedReportPage> {
                         Expanded(
                           child: DropdownButtonFormField<String>(
                             value: _selectedCategory,
+                            isExpanded: true,
                             decoration: const InputDecoration(
                               labelText: 'Kategori',
                               isDense: true,
                               contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                             ),
                             items: _categories.map((c) {
-                              return DropdownMenuItem(value: c, child: Text(c, style: const TextStyle(fontSize: 12)));
+                              return DropdownMenuItem(value: c, child: Text(c, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 12)));
                             }).toList(),
                             onChanged: (val) {
                               if (val != null) setState(() => _selectedCategory = val);
@@ -193,13 +194,14 @@ class _DetailedReportPageState extends State<DetailedReportPage> {
                         Expanded(
                           child: DropdownButtonFormField<String>(
                             value: _selectedMarket,
+                            isExpanded: true,
                             decoration: const InputDecoration(
                               labelText: 'Market / Bayi',
                               isDense: true,
                               contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                             ),
                             items: markets.map((m) {
-                              return DropdownMenuItem(value: m, child: Text(m, style: const TextStyle(fontSize: 12)));
+                              return DropdownMenuItem(value: m, child: Text(m, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 12)));
                             }).toList(),
                             onChanged: (val) {
                               if (val != null) setState(() => _selectedMarket = val);
@@ -322,9 +324,11 @@ class _DetailedReportPageState extends State<DetailedReportPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  'Harcama Detayları',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                const Expanded(
+                  child: Text(
+                    'Harcama Detayları',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
                 ),
                 Text(
                   '${filteredPurchases.length} sonuç listelendi',

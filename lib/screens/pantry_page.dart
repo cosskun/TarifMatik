@@ -48,7 +48,12 @@ class _PantryPageState extends State<PantryPage> {
                 children: [
                   Icon(Icons.kitchen, color: Colors.orange),
                   SizedBox(width: 10),
-                  Text('Kilere Malzeme Ekle'),
+                  Expanded(
+                    child: Text(
+                      'Kilere Malzeme Ekle',
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                 ],
               ),
               content: SingleChildScrollView(
@@ -68,7 +73,7 @@ class _PantryPageState extends State<PantryPage> {
                     Row(
                       children: [
                         Expanded(
-                          flex: 2,
+                          flex: 3,
                           child: TextField(
                             controller: _addAmountController,
                             decoration: const InputDecoration(
@@ -79,20 +84,21 @@ class _PantryPageState extends State<PantryPage> {
                             keyboardType: const TextInputType.numberWithOptions(decimal: true),
                           ),
                         ),
-                        const SizedBox(width: 12),
+                        const SizedBox(width: 10),
                         Expanded(
-                          flex: 1,
+                          flex: 2,
                           child: DropdownButtonFormField<String>(
-                            value: _selectedUnit,
+                            initialValue: _selectedUnit,
+                            isExpanded: true,
                             decoration: const InputDecoration(
                               labelText: 'Birim',
                               border: OutlineInputBorder(),
-                              contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+                              contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                             ),
                             items: _units.map((unit) {
                               return DropdownMenuItem(
                                 value: unit,
-                                child: Text(unit),
+                                child: Text(unit, overflow: TextOverflow.ellipsis),
                               );
                             }).toList(),
                             onChanged: (val) {

@@ -202,13 +202,17 @@ class _CookingAssistantPageState extends State<CookingAssistantPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'Malzeme Listesi ($_servings Kişilik)',
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
+                      Expanded(
+                        child: Text(
+                          'Malzeme Listesi ($_servings Kişilik)',
+                          style: theme.textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       IconButton(
+                        key: const Key('cooking_assistant_sheet_close_button'),
                         icon: const Icon(Icons.close),
                         onPressed: () => Navigator.pop(context),
                       ),
@@ -352,36 +356,38 @@ class _CookingAssistantPageState extends State<CookingAssistantPage> {
               minHeight: 5,
             ),
 
-            // Step Counter & Hands Free Banner
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               color: theme.colorScheme.surface,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: theme.colorScheme.primary.withOpacity(0.12),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Text(
-                          'Adım ${_currentStepIndex + 1} / $totalSteps',
-                          style: TextStyle(
-                            color: theme.colorScheme.primary,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
+                  Expanded(
+                    child: Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: 8,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: theme.colorScheme.primary.withOpacity(0.12),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Text(
+                            'Adım ${_currentStepIndex + 1} / $totalSteps',
+                            style: TextStyle(
+                              color: theme.colorScheme.primary,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        '($_servings Kişilik)',
-                        style: TextStyle(color: Colors.grey[600], fontSize: 12),
-                      ),
-                    ],
+                        Text(
+                          '($_servings Kişilik)',
+                          style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                        ),
+                      ],
+                    ),
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -390,11 +396,12 @@ class _CookingAssistantPageState extends State<CookingAssistantPage> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: const Row(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(Icons.visibility, color: Colors.green, size: 14),
                         SizedBox(width: 4),
                         Text(
-                          'Ekran Açık Tutuluyor',
+                          'Ekran Açık',
                           style: TextStyle(color: Colors.green, fontSize: 10, fontWeight: FontWeight.w600),
                         ),
                       ],
@@ -600,15 +607,20 @@ class _CookingAssistantPageState extends State<CookingAssistantPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    Icon(Icons.timer, color: theme.colorScheme.primary),
-                    const SizedBox(width: 8),
-                    const Text(
-                      'Mutfak Zamanlayıcısı',
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                    ),
-                  ],
+                Expanded(
+                  child: Row(
+                    children: [
+                      Icon(Icons.timer, color: theme.colorScheme.primary),
+                      const SizedBox(width: 8),
+                      const Expanded(
+                        child: Text(
+                          'Mutfak Zamanlayıcısı',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 if (_isTimerActive)
                   IconButton(
@@ -670,39 +682,42 @@ class _CookingAssistantPageState extends State<CookingAssistantPage> {
               const SizedBox(height: 16),
 
               // Timer Controls
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton.filledTonal(
-                    icon: const Icon(Icons.refresh),
-                    tooltip: 'Sıfırla',
-                    onPressed: _resetTimer,
-                  ),
-                  const SizedBox(width: 12),
-                  ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: _isTimerRunning ? Colors.orange : theme.colorScheme.primary,
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton.filledTonal(
+                      icon: const Icon(Icons.refresh),
+                      tooltip: 'Sıfırla',
+                      onPressed: _resetTimer,
                     ),
-                    icon: Icon(_isTimerRunning ? Icons.pause : Icons.play_arrow),
-                    label: Text(_isTimerRunning ? 'Duraklat' : 'Devam Et'),
-                    onPressed: () {
-                      if (_isTimerRunning) {
-                        _pauseTimer();
-                      } else {
-                        _startTimer();
-                      }
-                    },
-                  ),
-                  const SizedBox(width: 12),
-                  IconButton.filledTonal(
-                    icon: const Icon(Icons.add),
-                    tooltip: '+1 Dakika Ekle',
-                    onPressed: () => _addSeconds(60),
-                  ),
-                ],
+                    const SizedBox(width: 8),
+                    ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: _isTimerRunning ? Colors.orange : theme.colorScheme.primary,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      ),
+                      icon: Icon(_isTimerRunning ? Icons.pause : Icons.play_arrow, size: 20),
+                      label: Text(_isTimerRunning ? 'Duraklat' : 'Devam Et'),
+                      onPressed: () {
+                        if (_isTimerRunning) {
+                          _pauseTimer();
+                        } else {
+                          _startTimer();
+                        }
+                      },
+                    ),
+                    const SizedBox(width: 8),
+                    IconButton.filledTonal(
+                      icon: const Icon(Icons.add),
+                      tooltip: '+1 Dakika Ekle',
+                      onPressed: () => _addSeconds(60),
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: 16),
             ],

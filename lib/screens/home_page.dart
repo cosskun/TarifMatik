@@ -386,7 +386,7 @@ class HomePage extends StatelessWidget {
                     mainAxisSpacing: 12,
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    childAspectRatio: 1.6,
+                    childAspectRatio: 1.75,
                     children: [
                       _buildQuickActionCard(
                         title: 'Yemek Çarkı\nDöndür',
@@ -652,7 +652,7 @@ class HomePage extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(16),
       child: Ink(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         decoration: BoxDecoration(
           color: color.withOpacity(0.08),
           borderRadius: BorderRadius.circular(16),
@@ -667,15 +667,20 @@ class HomePage extends StatelessWidget {
                 children: [
                   Text(
                     title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 13,
                       fontWeight: FontWeight.bold,
                       color: color,
+                      height: 1.15,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 3),
                   Text(
                     subtitle,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontSize: 10,
                       color: Colors.grey[600],
@@ -684,7 +689,8 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(icon, color: color, size: 30),
+            const SizedBox(width: 4),
+            Icon(icon, color: color, size: 26),
           ],
         ),
       ),

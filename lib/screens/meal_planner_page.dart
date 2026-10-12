@@ -106,12 +106,14 @@ class MealPlannerPage extends StatelessWidget {
               children: [
                 Icon(Icons.auto_awesome, color: Colors.white, size: 24),
                 SizedBox(width: 8),
-                Text(
-                  'Haftalık Akıllı Plan Önerisi',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                Expanded(
+                  child: Text(
+                    'Haftalık Akıllı Plan Önerisi',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
               ],
